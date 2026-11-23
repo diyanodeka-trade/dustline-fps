@@ -157,14 +157,16 @@ function animate(time) {
   if (gameStarted) {
     accumulator += Math.min(dt, 0.2);
     while (accumulator >= dtFixed) {
-      if (!rounds.endOpen && !rounds.buyMenuOpen) {
-        player.update(input, dtFixed);
-        botsMgr.update(dtFixed, player, (winner) => {});
-        grenade.update(dtFixed, player, botsMgr.bots, () => {});
+      if (!rounds.endOpen) {
         rounds.update(dtFixed, botsMgr.getAliveCounts(), (winner) => {
           if (winner === 'A') player.money += 3250;
           else player.money += 1900;
         });
+        if (!rounds.buyMenuOpen) {
+          player.update(input, dtFixed);
+          botsMgr.update(dtFixed, player, (winner) => {});
+          grenade.update(dtFixed, player, botsMgr.bots, () => {});
+        }
       }
       accumulator -= dtFixed;
     }
