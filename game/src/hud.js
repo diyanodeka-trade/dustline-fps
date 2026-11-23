@@ -37,8 +37,9 @@ export class HUD {
     this.els.ammoRes.textContent = `/ ${weapon.reserve}`;
     this.els.weapon.textContent = weapon.name;
 
-    const mins = Math.floor(state.round.timer / 60);
-    const secs = Math.floor(state.round.timer % 60);
+    const t = Math.max(0, state.round.timer);
+    const mins = Math.floor(t / 60);
+    const secs = Math.floor(t % 60);
     this.els.timer.textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
     
     this.els.scoreA.textContent = state.match.scoreA;
